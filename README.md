@@ -170,7 +170,8 @@ Imports from external modules, made available for execution within the WebAssemb
 
 ### Run wasm calculator in the browser
 
-Use JS to run calc.wasm
+Create index.html file loading index.js
+Create this index.js to run calc.wasm (from chapter 2)
 ```
 let importObject
 
@@ -180,5 +181,31 @@ WebAssembly.instantiateStreaming(fetch('calc.wasm') ,importObject)
 
 Run static server with 
 ```
-python -m http.server
+python -m http.server 8000
 ```
+
+### Run wasm in Rust host
+
+engines choice:
+- Wasm3
+- Wasmtime
+- Wasmer
+
+We'll use wasmer. Note from wasm3 github page: "I regret to inform the community that since my house was destroyed by russians who invaded my country, Wasm3 will enter a minimal maintenance phase".
+
+Add this to Cargo.toml
+```
+[dependencies]
+wasmer = "4.2.5"
+```
+
+We need to read the wasm file into a u8 vector, then create a store and a module from store and bytes vector. Then we can instantiate the module passing the store, the module and an empty imports object. We can then retrieve the calc.wasm exported functions from the instance and use it with the call method.
+
+
+### Run wasm in Go host 
+
+See chpter 1 to install wasmer package
+
+### Interactive WebAssembly lab
+
+create an interactive calculator
